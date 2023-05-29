@@ -3,8 +3,14 @@ package main
 import (
 	"NiuGame/main/Auth"
 	"NiuGame/main/Config"
+	"NiuGame/main/api"
+	"NiuGame/main/db"
 	"github.com/gin-gonic/gin"
 )
+
+func init() {
+	db.ConnInit()
+}
 
 func main() {
 	//var username string
@@ -70,15 +76,15 @@ func main() {
 	//} else {
 	//	fmt.Println("!!!!")
 	//}
+
 	_, err := Config.ParseConfig("E:\\Project\\NiuGame\\main\\Config\\app.json")
 	if err != nil {
 		panic("读取配置文件失败，" + err.Error())
 	}
-
 	r := gin.Default()
 	r.Use(Auth.JWTAuth())
 	// 用户登录接口
-	r.POST("/user/login", Login)
+	r.POST("/user/login", api.Login)
 	r.GET("/getCards", getCards)
 	r.Run()
 }
