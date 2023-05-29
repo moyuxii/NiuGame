@@ -10,8 +10,9 @@ type card struct {
 type cards []card
 
 type User struct {
-	userId int
-	cards  cards
+	userId   int
+	userName string
+	cards    cards
 }
 
 type Result struct {
