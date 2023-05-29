@@ -1,10 +1,8 @@
-package main
+package common
 
 const (
-	club    = "club"
+	Club    = "club"
 	Heart   = "Heart"
 	Spade   = "Spade"
 	Diamond = "Diamond"
 )
-
-var userList []User

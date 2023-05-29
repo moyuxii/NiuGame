@@ -1,6 +1,7 @@
 package main
 
 import (
+	"NiuGame/main/common"
 	"errors"
 	"fmt"
 	"sort"
@@ -9,13 +10,13 @@ import (
 
 func (s eumn) decorToNum() (n int, err error) {
 	switch s {
-	case club:
+	case common.Club:
 		return 1, nil
-	case Heart:
+	case common.Heart:
 		return 3, nil
-	case Spade:
+	case common.Spade:
 		return 4, nil
-	case Diamond:
+	case common.Diamond:
 		return 2, nil
 	default:
 		return 0, errors.New("未知花色")

@@ -3,7 +3,6 @@ package api
 import (
 	"NiuGame/main/Auth"
 	"NiuGame/main/Config"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -12,7 +11,7 @@ func Login(context *gin.Context) {
 	jwtConfig := Config.GetConfig().JwtConfig
 	var customer Config.Customer
 	err := context.Bind(&customer)
-	fmt.Println(customer)
+
 	if customer != Config.GetConfig().Customer {
 		context.JSON(http.StatusOK, gin.H{"code": 500, "msg": "用户名/密码错误，请重试"})
 		return

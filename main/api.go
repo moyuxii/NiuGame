@@ -8,6 +8,7 @@ import (
 )
 
 func getCards(c *gin.Context) {
+	var userList []User
 	No, _ := strconv.Atoi(c.Query("userNo"))
 	Name := c.DefaultQuery("userName", "Non")
 	flag := true
