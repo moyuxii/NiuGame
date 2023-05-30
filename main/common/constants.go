@@ -6,3 +6,8 @@ const (
 	Spade   = "Spade"
 	Diamond = "Diamond"
 )
+
+const (
+	ResultOk    = 200
+	ResultError = 500
+)

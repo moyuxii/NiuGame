@@ -12,7 +12,6 @@ type Config struct {
 	AppHost   string    `json:"app_host"`
 	AppPort   string    `json:"app_port"`
 	JwtConfig JwtConfig `json:"jwt_config"`
-	Customer  Customer  `json:"customer"`
 }
 
 type JwtConfig struct {
@@ -20,11 +19,6 @@ type JwtConfig struct {
 	Audience  string `json:"audience"`
 	Expires   int64  `json:"expires"`
 	SecretKey string `json:"secret_key"`
-}
-
-type Customer struct {
-	Name   string `json:"name"`
-	Passwd string `json:"passwd"`
 }
 
 func GetConfig() *Config {

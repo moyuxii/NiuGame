@@ -4,9 +4,5 @@
   "audience": "yuxii",
   "expires": 3600,
   "secret_key": "54s64dede#$#1"
-  },
-  "customer": {
-    "name": "moyuxii",
-    "passwd": "123"
   }
 }

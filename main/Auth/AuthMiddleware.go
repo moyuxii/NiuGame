@@ -9,7 +9,7 @@ import (
 )
 
 // 免登录接口列表
-var notAuthArr = map[string]string{"/user/login": "1", "/api/user/get1": "1"}
+var notAuthArr = map[string]string{"/customer/Login": "1", "/api/user/get1": "1"}
 
 func JWTAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
