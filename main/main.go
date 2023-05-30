@@ -1,7 +1,6 @@
 package main
 
 import (
-	"NiuGame/main/Auth"
 	"NiuGame/main/Config"
 	"NiuGame/main/api"
 	"NiuGame/main/common"
@@ -20,7 +19,7 @@ func main() {
 		return
 	}
 	r := api.InitRouter()
-	r.Use(Auth.JWTAuth())
+
 	// 用户登录接口
 	_ = r.Run()
 }

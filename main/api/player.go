@@ -1,10 +1,10 @@
 package api
 
 import (
+	"NiuGame/main/Auth"
 	"NiuGame/main/Entity"
 	"NiuGame/main/common"
 	"NiuGame/main/db"
-	"NiuGame/main/tool"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -20,11 +20,14 @@ func (p *player) BuildGame(c *gin.Context) {
 	var roomRequestDto room
 	err := c.Bind(&roomRequestDto)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"code": 500, "msg": "创建房间失败"})
+		c.JSON(
+			http.StatusOK,
+			gin.H{"Result": Entity.Result{common.ResultError, "创建房间失败"}},
+		)
 		return
 	}
-	dbp := db.GetDb()
 	var roomPo room
+	dbp := db.GetDb()
 	dbp.Where("room_id = ?", roomRequestDto.RoomId).First(&roomPo)
 	if roomPo != (room{}) {
 		c.JSON(
@@ -35,21 +38,46 @@ func (p *player) BuildGame(c *gin.Context) {
 	} else {
 		//创建房间
 		jwtUser, _ := c.Get("jwtUser")
-		claims, err2 := tool.ToClaims(jwtUser)
-		if err2 != nil {
+		if jwtUser != nil {
+			var claims *Auth.CustomerClaims
+			claims = jwtUser.(*Auth.CustomerClaims)
+			if claims == nil {
+				return
+			}
+			roomRequestDto.BelongCust = claims.UserName
+			dbp.Save(&roomRequestDto)
 			c.JSON(
 				http.StatusOK,
-				gin.H{"Result": Entity.Result{common.ResultError, err2.Error()},
+				gin.H{"Result": Entity.Result{common.ResultOk, "房间创建成功"},
 					"Data": roomRequestDto.RoomId},
+			)
+		} else {
+			c.JSON(
+				http.StatusOK,
+				gin.H{"Result": Entity.Result{common.ResultError, "用户信息获取失败"}},
 			)
 			return
 		}
-		roomRequestDto.BolongCust = claims.UserName
-		dbp.Save(&roomRequestDto)
 	}
-	c.JSON(
-		http.StatusOK,
-		gin.H{"Result": Entity.Result{common.ResultOk, "房间创建成功"},
-			"Data": roomRequestDto.RoomId},
-	)
+}
+
+func (p *player) RoomList_get(c *gin.Context) {
+	jwtUser, _ := c.Get("jwtUser")
+	if jwtUser != nil {
+		var claims *Auth.CustomerClaims
+		RoomList := []room{}
+		claims = jwtUser.(*Auth.CustomerClaims)
+		dbp := db.GetDb()
+		dbp.Where("belong_cust = ?", claims.UserName).Find(&RoomList)
+		c.JSON(
+			http.StatusOK,
+			gin.H{"Result": Entity.Result{common.ResultOk, "成功"},
+				"Data": RoomList},
+		)
+	} else {
+		c.JSON(
+			http.StatusOK,
+			gin.H{"Result": Entity.Result{common.ResultError, "用户信息获取失败"}},
+		)
+	}
 }

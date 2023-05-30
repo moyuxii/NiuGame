@@ -1,6 +1,7 @@
 package api
 
 import (
+	"NiuGame/main/Auth"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"reflect"
@@ -21,6 +22,7 @@ var Routes = []Route{}
 func InitRouter() *gin.Engine {
 	//初始化路由
 	r := gin.Default()
+	r.Use(Auth.JWTAuth())
 	//绑定基本路由，访问路径：/User/List
 	Bind(r)
 	return r

@@ -22,7 +22,7 @@ type Room struct {
 	gorm.Model
 	RoomId     string
 	RoomPasswd string
-	BolongCust string
+	BelongCust string
 	Enable     bool `gorm:"default:true"`
 }
 
