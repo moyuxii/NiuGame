@@ -2,8 +2,8 @@ package api
 
 import (
 	"NiuGame/main/Auth"
-	"fmt"
 	"github.com/gin-gonic/gin"
+	"log"
 	"reflect"
 	"strings"
 )
@@ -31,12 +31,12 @@ func InitRouter() *gin.Engine {
 // 注册控制器
 func Register(controller interface{}) bool {
 	ctrlName := reflect.TypeOf(controller).String()
-	fmt.Println("ctrlName=", ctrlName)
+	log.Println("ctrlName=", ctrlName)
 	module := ctrlName
 	if strings.Contains(ctrlName, ".") {
 		module = ctrlName[strings.Index(ctrlName, ".")+1:]
 	}
-	fmt.Println("module=", module)
+	log.Println("module=", module)
 	v := reflect.ValueOf(controller)
 	//遍历方法
 	for i := 0; i < v.NumMethod(); i++ {
@@ -51,14 +51,14 @@ func Register(controller interface{}) bool {
 		}
 		for j := 0; j < method.Type().NumIn(); j++ {
 			params = append(params, method.Type().In(j))
-			fmt.Println("params-name=", method.Type().In(j))
+			log.Println("params-name=", method.Type().In(j))
 		}
-		fmt.Println("params=", params)
-		fmt.Println("action=", action)
+		log.Println("params=", params)
+		log.Println("action=", action)
 		route := Route{path: path, Method: method, Args: params, httpMethod: httpMethod}
 		Routes = append(Routes, route)
 	}
-	fmt.Println("Routes=", Routes)
+	log.Println("Routes=", Routes)
 	return true
 }
 
@@ -82,7 +82,7 @@ func Bind(e *gin.Engine) {
 func match(path string, route Route) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		fields := strings.Split(path, "/")
-		fmt.Println("fields,len(fields)=", fields, len(fields))
+		log.Println("fields,len(fields)=", fields, len(fields))
 		if len(fields) < 3 {
 			return
 		}

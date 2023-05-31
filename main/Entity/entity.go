@@ -12,18 +12,23 @@ type Card struct {
 type Cards []Card
 
 type Player struct {
-	PlayerId   string
+	gorm.Model
 	RoomId     string
 	PlayerName string
-	HandCards  Cards
+	PlayerRole int `gorm:"default:2"`
 }
 
 type Room struct {
 	gorm.Model
-	RoomId     string
+	RoomId     string `form:"roomId" json:"roomId" `
 	RoomPasswd string
 	BelongCust string
 	Enable     bool `gorm:"default:true"`
+}
+
+type Gaming struct {
+	gorm.Model
+	RoomId string
 }
 
 type Customer struct {

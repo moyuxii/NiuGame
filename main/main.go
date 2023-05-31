@@ -4,13 +4,7 @@ import (
 	"NiuGame/main/Config"
 	"NiuGame/main/api"
 	"NiuGame/main/common"
-	"NiuGame/main/db"
 )
-
-func init() {
-	db.ConnInit()
-
-}
 
 func main() {
 	_, err := Config.ParseConfig(common.File_App_Json)
