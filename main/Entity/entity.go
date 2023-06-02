@@ -15,7 +15,8 @@ type Player struct {
 	gorm.Model
 	RoomId     string
 	PlayerName string
-	PlayerRole int `gorm:"default:2"`
+	Lock       bool `gorm:"default:false"`
+	PlayerRole int  `gorm:"default:2"`
 }
 
 type Room struct {
@@ -28,7 +29,9 @@ type Room struct {
 
 type Gaming struct {
 	gorm.Model
-	RoomId string
+	RoomId     string
+	PlayerName string
+	CardList   string
 }
 
 type Customer struct {
