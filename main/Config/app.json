@@ -1,8 +1,0 @@
-{
-  "jwt_config": {
-  "issuer": "moyuxii",
-  "audience": "yuxii",
-  "expires": 3600,
-  "secret_key": "54s64dede#$#1"
-  }
-}

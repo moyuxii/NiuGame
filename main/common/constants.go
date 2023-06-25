@@ -8,6 +8,7 @@ const (
 )
 
 const (
-	ResultOk    = 200
-	ResultError = 500
+	ResultOk     = 200
+	ResultError  = 500
+	Unauthorized = 401
 )

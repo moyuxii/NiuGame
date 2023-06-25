@@ -1,0 +1,10 @@
+jwt_config:
+  issuer: moyuxii
+  audience: moyuxii
+  expires: 3600
+  secret_key: 54s64dede#$#1
+room:
+  size: 8
+  startMinSize: 2
+database:
+  sqlite: test.db
